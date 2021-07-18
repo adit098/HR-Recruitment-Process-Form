@@ -1,0 +1,575 @@
+{% extends 'addcandidate/base.html' %}
+{% load staticfiles %}
+{% load custom_tags %}
+
+{% block title %}Add Candidate{% endblock %}
+
+{% block body_block %}
+
+<div class="ui stackable doubling centered card right floated"
+         style="margin: auto;
+                margin-top: 5%;
+                min-width: 800px;">
+
+
+<form action="{% url 'addcandidate:add_candidate_submit' %}" method ="POST" enctype="multipart/form-data">
+<div class="ui form" style="padding: 8px; padding-left: 24px; padding-right: 24px;">
+        {% csrf_token %}
+        
+
+  <h3 class="ui dividing header">ADD CANDIDATE</h3>
+  
+  <div class="field">
+    <label>Name*</label>
+    <div class="three fields">
+        <div class="field">
+        <input type="text" name="first-name" placeholder="First Name" required>
+        </div>
+        <div class="field">
+        <input type="text" name="middle-name" placeholder="Middle Name">
+        </div>
+        <div class="field">
+        <input type="text" name="last-name" placeholder="Last Name">
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Contact Number*</label>
+    <div class="six wide field">
+      <input type="text" name="contact-number" placeholder="Contact" required>
+    </div>
+  </div>
+
+<div class="valid-msg-error">
+    <span id="link-resume-error" style="color:red">{{link_resume_error}}</span>
+</div>
+
+  <div class="field">
+    <label>Linkedin Link</label>
+    <div class="twelve wide field">
+      <input type="text" name="linkedin-link" placeholder="Link">
+    </div>
+  </div>
+
+    <div class="field">
+    <label>Resume</label>
+    <div class="twelve wide field">
+        <input type="file" name="resume" id="upload-resume">
+    </div>
+    </div>
+
+  
+  <div class="two fields">
+    <div class="field">
+      <label for="inputState">State</label>
+      <select class="ui fluid dropdown" id="inputState" name="input-state" required>
+        <option value="SelectState">Select State</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madya Pradesh">Madya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Orissa">Orissa</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttaranchal">Uttaranchal</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="West Bengal">West Bengal</option>
+            <option disabled style="background-color:#aaa; color:#fff">UNION Territories</option>
+            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+            <option value="Daman and Diu">Daman and Diu</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Lakshadeep">Lakshadeep</option>
+            <option value="Pondicherry">Pondicherry</option>
+      </select>
+    </div>
+
+    <div class="field">
+        <label for="inputDistrict">District</label>
+        <select class="ui fluid dropdown" id="inputDistrict" name="input-district" required>
+            <option value="SelectCity">-- Select City -- </option>
+        </select>
+    </div>
+
+{% comment %} <script type="text/javascript">
+    state_district();
+</script> {% endcomment %}
+
+  </div>
+
+        <div class="two fields">
+            <div class="eight wide field">
+                <label>Date Called</label>
+                <input type="date" class="ui input" placeholder="Date" name="date-called" id="date-called" required>
+           </div>
+            <div class="eight wide field">
+                <label>Time Called</label>
+                <input type="time"  class="ui input" placeholder="Time" name="time-called" id="time-called" required>
+           </div>
+        </div>
+
+        {% comment %} <input type="hidden" id="canvasText" name="canvasText" value="" /> {% endcomment %}
+        
+        <div class="field">
+            <label>Applied for</label>
+            <div class="two fields">
+                <div class="eight wide field">
+                    <label>Role</label>
+                    <select class="ui search fluid dropdown" id="role" name="role" required>
+                    <option selected disabled value="">Select Role</option>
+                        {% for role in roles %}
+                            <option value={{role.role}}>{{role.get_role_display}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="eight wide field">
+                    <label>Position</label>
+                    <select class="ui search fluid dropdown" id="position" name="position" required>
+                    <option selected disabled value="">Select Position</option>
+                        {% for position in positions %}
+                            <option value={{position.0}}>{{position.1}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="two fields">
+                <div class="eight wide field">
+                    <div id="otherRole" style="display:none;">
+                        <label for="specify">Specify Role</label>
+                        <input type="text" id="otherRoleInput" name="other-role" placeholder="Specify Role"/>
+                    </div>
+                </div>
+                <div class="eight wide field">
+                    <div id="otherPosition" style="display:none;">
+                        <label for="specify">Specify Position</label>
+                        <input type="text" id="otherPositionInput" name="other-position" placeholder="Specify Position"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {% comment %} TODO Rating Parameters {% endcomment %}
+        {% comment %} <div class="field" id="rating-parameters" style="display:none;">
+        <label>Rating Parametrs</label>
+        {% for i in param_no %}
+            <div class="inline fields">
+            <label id="label-param-{{i}}" name="label-param-{{i}}">Comment</label>
+                {% for j in param_values %}
+                    <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" value="{{j.0}}" name="roles-parametrs-{{forloop.parentloop.counter0}}" id="rp-{{forloop.parentloop.counter0}}">
+                        <label>{{j.1}}</label>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div> {% endcomment %}
+
+
+        <div class="field" id="rating-parameters" style="display:none;">
+        <label>Rating Parametrs</label>
+        <table class="ui celled table">
+        {% for i in param_no %}
+            <tr>
+            <td style="width: 30%;"><label id="label-param-{{i}}" name="label-param-{{i}}">Comment</label></td>
+            <td class="right aligned">
+            <div class="inline fields">
+                {% for j in param_values %}
+                    
+                    <div class="ui radio checkbox">
+                    
+                        <input type="radio" value="{{j.0}}" name="roles-parametrs-{{forloop.parentloop.counter0}}" id="rp-{{forloop.parentloop.counter0}}" required>
+                        <label>{{j.1}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                    
+                    </div>
+                    
+                {% endfor %}
+            </div>
+            </td>
+            </div>
+            </tr>
+        {% endfor %}
+        </table>
+        </div>
+
+
+        <div class="twelve wide field">
+            <label>Attitude</label>
+            <select multiple="" class="ui fluid search dropdown" id="attitude" name="attitude" required>
+            <option selected disabled value="">Select Attitude</option>
+                {% for attitude in attitudes %}
+                    <option value={{attitude.attitude}}>{{attitude.get_attitude_display}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+
+        <div class="field">
+            <label>Notes:</label>
+            <div class="twelve wide field">
+                <label>Positive</label>
+                <textarea rows="4" name="positive-note"></textarea>
+            </div>
+            <div class="twelve wide field">
+                <label>Negative</label>
+                <textarea rows="4" name="negative-note"></textarea>
+            </div>
+            <div class="twelve wide field">
+                <label>Additional</label>
+                <textarea rows="4" name="additional-note"></textarea>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+
+
+        <div class="field">
+            <label>Source</label>
+            <div class="twelve wide field">
+                <select class="ui search fluid dropdown" id="source" name="source">
+                <option selected disabled value="">Select Source</option>
+                    {% for source in sources %}
+                        <option value={{source.0}}>{{source.1}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="twelve wide field">
+                <div id="otherSource" style="display:none;">
+                    <label for="specify">Specify Source</label>
+                    <input type="text" id="otherSourceInput" name="other-source" placeholder="Specify Source"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+
+        <div class="field">
+            <label>1st Meeting:</label>
+            <div class="inline fields">
+                <label name="fms">Status</label>
+                <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" value="shortlisted" name="first-meeting-status" id="m1s" onclick="firstMeetingStatusCheck()">
+                    <label>Shortlisted</label>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" value="rejected" name="first-meeting-status" id="m1r" onclick="firstMeetingStatusCheck()">
+                    <label>Rejected</label>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" value="meeting_to_be_held" name="first-meeting-status" id="m1h" onclick="firstMeetingStatusCheck()" checked="checked">
+                    <label>MeetingToBeHeld</label>
+                </div>
+                </div>
+            </div>
+
+            <div class="twelve wide field">
+                <label>Additional Note</label>
+                <textarea rows="4" name="additional-note-first-meeting"></textarea>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+
+        <div class="field" id="schedule-interview">
+            <label>Schedule Interview:</label>
+            <div class="two fields">
+                <div class="eight wide field">
+                    <label>Date</label>
+                    <input type="date" class="ui input" placeholder="Date" name="date-interview">
+                </div>
+                <div class="eight wide field">
+                    <label>Time</label>
+                    <input type="time"  class="ui input" placeholder="Time" name="time-interview">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="field" id="second-meeting">
+            <label>2nd Meeting:</label>
+            <div class="inline fields">
+                <label name="sms">Status</label>
+                <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" onclick="secondMeetingStatusCheck();" value="shortlisted" name="second-meeting-status" id="m2s">
+                    <label>Shortlisted</label>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" onclick="secondMeetingStatusCheck();" value="rejected" name="second-meeting-status" id="m2r">
+                    <label>Rejected</label>
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" onclick="secondMeetingStatusCheck();" value="meeting_to_be_held" name="second-meeting-status" id="m2h" checked="checked">
+                    <label>MeetingToBeHeld</label>
+                </div>
+                </div>
+            </div>
+
+            <div class="twelve wide field">
+                <label>Additional Note By Sir</label>
+                <textarea rows="4" name="additional-note-second-meeting"></textarea>
+            </div>
+        </div>
+
+        <div clas="ui divider"></div>
+
+
+
+
+        {% comment %} TODO: schedule more interview {% endcomment %}
+
+        <div id="content">
+        
+        </div>
+
+
+
+        <div class="ui horizontal divider header" id="more_interview">
+            <button type="button" class="ui inverted secondary button" onclick="addRow();">
+                <i class="plus circle icon"></i>
+                Add More Meeting
+            </button>
+        </div>
+
+        {% comment %} ----------------------------------------------------- {% endcomment %}
+
+        <div class="field" id="final-attatchment">
+            <label>Aadhar Attatchment:</label>
+            <div class="twelve wide field">
+                <input type="file" name="aadhar">
+            </div>
+            <label>E-mail</label>
+            <div class="twelve wide field">
+                <input type="email" name="email" placeholder="joe@schmoe.com">
+            </div>
+        </div>
+
+
+  <button class="ui primary button" type="submit">
+                                      Submit
+                                  </button>
+</form>
+
+<br>
+<br>
+</div>
+        <script type="text/javascript">
+            state_district();
+            firstMeetingStatusCheck();
+            secondMeetingStatusCheck();
+
+            function moreMeetingStatusCheck(val) {
+                console.log("hallallallallall " + val);
+                if (document.getElementById('m'+ val +'s').checked) {
+                    document.getElementById('final-attatchment').style.display = 'block';
+                    document.getElementById('more_interview').style.display = 'block';
+                } 
+                else if(document.getElementById('m' + val + 'r').checked || document.getElementById('m' + val + 'h').checked) {
+                    document.getElementById('final-attatchment').style.display = 'none';
+                    document.getElementById('more_interview').style.display = 'none';
+            }
+            }
+            
+
+            var a = JSON.parse("{{roles_parameters|escapejs}}");
+            
+
+            $('#role').on('change',function(){
+                if( $(this).val()==="other"){
+                    document.getElementById("otherRoleInput").setAttribute("required", "");
+                    $("#otherRole").show();
+                
+                }
+                else{
+                    document.getElementById("otherRoleInput").removeAttribute("required");
+                    $("#otherRole").hide();
+                
+                }
+                var rl = a[$(this).val()];
+                console.log(rl);
+
+                for (let i = 0; i < rl.length; i++) {
+                    let paramId = "label-param-" + i;
+                    console.log(paramId);
+                    let dataNode = document.getElementById(paramId);
+                    console.log(dataNode)
+                    console.log(rl[i]);
+                    dataNode.innerText = rl[i] + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0';
+                }
+                $("#rating-parameters").show();
+
+            });
+
+            $('#position').on('change',function(){
+                if( $(this).val()==="other"){
+                    document.getElementById("otherPositionInput").setAttribute("required", "");
+                    $("#otherPosition").show();
+                }
+                else{
+                    document.getElementById("otherPositionInput").removeAttribute("required");
+                    $("#otherPosition").hide();
+                }
+            });
+
+            $('#source').on('change',function(){
+                if( $(this).val()==="other"){
+                    document.getElementById("otherSourceInput").setAttribute("required", "");
+                    $("#otherSource").show();
+                }
+                else{
+                    document.getElementById("otherSourceInput").removeAttribute("required");
+                    $("#otherSource").hide();
+                }
+            });
+
+            $('#attitude').dropdown({
+                maxSelections: 4,
+            });
+
+            var interview_no = 3;
+
+            function addRow() {
+                const div = document.createElement('div');
+
+                div.className = 'row';
+                let prev_meet_id = "m"+(interview_no-1)+"s";
+                let prev_minus_btn_id = "minus-"+(interview_no-1);
+                console.log(prev_meet_id);
+                console.log(prev_minus_btn_id);
+                
+
+
+                if(document.getElementById(prev_meet_id).checked){
+
+                div.innerHTML = `
+                <br>
+                <div class="ui divider"></div>
+                    <button type="button" class="circular ui icon button right floated" onclick="removeRow(this)" id="minus-` + interview_no + `">
+                        <i class="minus circle icon"></i>
+                    </button>
+
+                    <div class="field" id="schedule-interview-` + interview_no + `">
+                        <label>Schedule Interview:</label>
+                        <div class="two fields">
+                            <div class="eight wide field">
+                                <label>Date</label>
+                                <input type="date" class="ui input" placeholder="Date" name="date-interview-` + interview_no + `">
+                            </div>
+                            <div class="eight wide field">
+                                <label>Time</label>
+                                <input type="time"  class="ui input" placeholder="Time" name="time-interview-` + interview_no + `">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="field" id="meeting-` + interview_no + `">
+                        <label>Meeting ` + interview_no +` :</label>
+                        <div class="inline fields">
+                            <label name="sms">Status</label>
+                            <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" value="shortlisted" onclick="moreMeetingStatusCheck(`+ interview_no + `)" name="` + interview_no + `no-meeting-status" id="m` + interview_no + `s">
+                                <label>Shortlisted</label>
+                            </div>
+                            </div>
+                            <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" value="rejected" onclick="moreMeetingStatusCheck(`+ interview_no + `)" name="` + interview_no + `no-meeting-status" id="m` + interview_no + `r">
+                                <label>Rejected</label>
+                            </div>
+                            </div>
+                            <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" value="meeting_to_be_held" onclick="moreMeetingStatusCheck(`+ interview_no + `)" name="` + interview_no + `no-meeting-status" id="m` + interview_no + `h" checked="checked">
+                                <label>MeetingToBeHeld</label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="twelve wide field">
+                            <label>Additional Note By Sir</label>
+                            <textarea rows="4" name="additional-note-` + interview_no + `-meeting"></textarea>
+                        </div>
+                    </div>
+
+                <div class="ui divider"></div>
+
+                `;
+
+
+                if(prev_minus_btn_id!="minus-2"){
+                    document.getElementById(prev_minus_btn_id).style.display = 'none';
+                }
+                interview_no += 1;
+                document.getElementById('content').appendChild(div);
+
+                moreMeetingStatusCheck(interview_no-1);
+                }
+            }
+
+
+
+            function removeRow(input) {
+                document.getElementById('content').removeChild(input.parentNode);
+                interview_no -= 1;
+                let prev_minus_btn_id_in_remove = "minus-"+(interview_no-1);
+                console.log(prev_minus_btn_id_in_remove);
+                if(prev_minus_btn_id_in_remove!="minus-2"){
+                    document.getElementById(prev_minus_btn_id_in_remove).style.display = 'block';
+                }
+                moreMeetingStatusCheck(interview_no-1);
+            }
+
+
+           
+            
+        </script>
+
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'addcandidate/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Login{% endblock %}
+
+{% block body_block %}
+    <div class="ui raised stackable doubling centered card right floated"
+         style="margin: auto;
+                margin-top: 7.5%;
+                min-width: 360px;">
+
+        <div class="content">
+            <img class="ui rounded centered very tiny image"
+                 src="{% static 'img/user.png' %}"
+                 style="margin-top: -27.5%;
+                        margin-left: 38.5%;"
+                 alt="User Image" >
+
+            <div class="ui huge centered header">
+                HR Login
+            </div>
+
+        </div>
+
+        {% for message in messages %}
+            <div class="ui warning message">
+                <div class="header">
+                    Login failed!
+                </div>
+                    {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="content">
+            <form method="post" action="{% url 'addcandidate:user_login' %}"
+                  class="ui form"
+                  style="margin-top: 7.5%; margin-bottom: 3.5%;">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="username">Username:</label>
+                    <div class="ui input">
+                        <input placeholder="Username" id="username" name="username">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <div class="ui input">
+                        <input placeholder="Password" type="password" id="password" name="password">
+                    </div>
+                </div>
+
+                <div class="field"
+                     style="margin-top: 7.5%;
+                                 margin-bottom: 7.5%;">
+                    <div class="ui divider"></div>
+                </div>
+
+                <div class="field">
+                    <button class="ui fluid large primary button"
+                            type="submit">
+                        &ensp;
+                        Login
+                    </button>
+                </div>
+
+                
+            </form>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,391 @@
+{% extends 'addcandidate/base.html' %}
+{% load staticfiles %}
+{% load custom_tags %}
+
+{% block title %}View Candidate{% endblock %}
+
+{% block body_block %}
+<div class="ui stackable doubling centered card right floated"
+         style="margin: auto;
+                margin-top: 6%;
+                min-width: 800px;">
+
+
+
+<div class="ui form" style="padding: 8px; padding-left: 24px; padding-right: 24px; padding-bottom: 100px;">        
+
+  <h4 class="ui dividing header">CANDIDATE VIEW
+  <a href="{% url 'addcandidate:updatecandidate' pk=candidate.pk %}"><button class="ui basic button" style="margin-left:85%;">Update</button></a>
+  </h4>
+
+  <h4 class="ui horizontal divider header">
+    <i class="info circle icon"></i>
+    Personal Info
+</h4>
+  
+  <div class="field">
+    <div class="three fields">
+        <div class="field">
+        <label>First Name</label>
+        {{candidate.first_name}}
+        </div>
+        <div class="field">
+        <label>Middle Name</label>
+        {% ifequal candidate.middle_name None %}
+        ---------
+        {% else %}
+        {{candidate.middle_name}}
+        {% endifequal %}
+        </div>
+        <div class="field">
+        <label>Last Name</label>
+        {% ifequal candidate.last_name None %}
+        ---------
+        {% else %}
+        {{candidate.last_name}}
+        {% endifequal %}
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Contact Number</label>
+    <div class="six wide field">
+      {{candidate.contact_number}}
+    </div>
+  </div>
+
+<div class="valid-msg-error">
+    <span id="link-resume-error" style="color:red">{{link_resume_error}}</span>
+</div>
+
+  <div class="field">
+    <label>Linkedin Link</label>
+    <div class="twelve wide field">
+      <a href="{{candidate.linkedin_link}}">{{candidate.linkedin_link|truncatechars:60}}</a>
+    </div>
+  </div>
+
+    <div class="field">
+    <label>Resume</label>
+    <div class="twelve wide field">
+        <a href="..\media\{{candidate.resume}}">{{candidate.resume}}</a>
+    </div>
+    </div>
+
+  
+  <div class="two fields">
+    <div class="field">
+    <label>State</label>
+      {{candidate.state}}
+    </div>
+
+    <div class="field">
+    <label>City</label>
+        {{candidate.city}}
+    </div>
+  </div>
+
+        <h4 class="ui horizontal divider header">
+            <i class="phone icon"></i>
+            Called On
+        </h4>
+
+        <div class="two fields">
+            <div class="eight wide field">
+                <label>Date</label>
+                {{candidate.date_called}}
+           </div>
+            <div class="eight wide field">
+                <label>Time</label>
+                {{candidate.time_called}}
+           </div>
+        </div>
+
+        {% comment %} <input type="hidden" id="canvasText" name="canvasText" value="" /> {% endcomment %}
+        
+        <h4 class="ui horizontal divider header">
+            <i class="tag icon"></i>
+            Applied For
+        </h4>
+
+        <div class="field">
+            <div class="two fields">
+                <div class="eight wide field">
+                    <label>Role</label>
+                    {% ifequal candidate.role.role "other"  %}
+                        {{candidate.role}}-{{candidate.other_role}}
+                    {% else %}
+                        {{candidate.role}}
+                    {% endifequal %}
+                </div>
+                <div class="eight wide field">
+                    <label>Position</label>
+                    {% ifequal candidate.position "other"  %}
+                        {{candidate.get_position_display}}-{{candidate.other_position}}
+                    {% else %}
+                        {{candidate.get_position_display}}
+                    {% endifequal %}
+                </div>
+            </div>
+        </div>
+
+
+        <h4 class="ui horizontal divider header">
+            <i class="star outline icon"></i>
+            Rating
+        </h4>
+
+
+        <div class="ten wide field" id="rating-parameters">
+        <label>Parameters</label>
+            <table class="ui definition table">       
+                {% for rl in candidate.role.rating_parameters.all %}
+                {% comment %} <div class="field">
+                    {{rl.get_parameters_display}} :  {{candidate|get_param_val:forloop.counter}}
+                </div> {% endcomment %}
+                <tr>
+                    <td class="eight wide column">{{rl.get_parameters_display}}</td>
+                    <td>{{candidate|get_param_val:forloop.counter}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="twelve wide field">
+            <label>Attitude</label>
+
+            {% for at in candidate.attitude.all %}
+                {{at.get_attitude_display}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            {% endfor %}
+        </div>
+
+        <br>
+        <br>
+
+        <h4 class="ui horizontal divider header">
+            <i class="align left icon"></i>
+            Notes
+        </h4>
+
+        <div class="field">
+            <div class="field">
+                <label>Positive</label>
+                <div style="margin-left: 34px;">
+                {{candidate.positive_notes}}
+                </div>
+            </div>
+            <div class="field">
+                <label>Negative</label>
+                <div style="margin-left: 34px;">
+                {{candidate.negative_notes}}
+                </div>
+            </div>
+            <div class="field">
+                <label>Additional</label>
+                <div style="margin-left: 34px;">
+                {{candidate.additional_notes}}
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <h4 class="ui horizontal divider header">
+            <i class="tag icon"></i>
+            Source
+        </h4>
+
+
+
+        <div class="field">
+            <label>Source</label>
+            <div class="twelve wide field">
+                {% ifequal candidate.source "other"  %}
+                    {{candidate.get_source_display}}-{{candidate.other_source}}
+                {% else %}
+                    {{candidate.get_source_display}}
+                {% endifequal %}
+            </div>
+        </div>
+
+        <br>
+
+
+        <h4 class="ui horizontal divider header">
+            <i class="paper plane outline icon"></i>
+            1st Meeting
+        </h4>
+
+
+        <div class="field">
+            <div class="twelve wide fields" style="padding-left: 8px;">
+                <label>Status:</label>
+                <div class="field">
+                    {{candidate.get_first_meeting_status_display}}
+                </div>
+            </div>
+
+            <div class="twelve wide field">
+                <label>Additional Note</label>
+                <div class="field" style="padding-left: 34px;">
+                    {% ifequal candidate.additional_notes_on_first_meeting ""  %}
+                        ----------
+                    {% else %}
+                        {{candidate.additional_notes_on_first_meeting}}
+                    {% endifequal %}
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <h5 class="ui horizontal divider header">
+            <i class="calendar check outline icon"></i>
+            Scheduled Interview For 2nd Meeting
+        </h5>
+
+
+        <div class="field" id="schedule-interview">
+            {% ifequal candidate.first_meeting_status "shortlisted" %}
+                <div class="two fields">
+                    <div class="eight wide field">
+                        <label>Date</label>
+                        {{candidate.interview_date}}
+                    </div>
+                    <div class="eight wide field">
+                        <label>Time</label>
+                        {{candidate.interview_time}}
+                    </div>
+                </div>
+            {% else %}
+                <p>Interview Not Scheduled</p>
+            {% endifequal %}
+        </div>
+
+        <br>
+
+        <h4 class="ui horizontal divider header">
+            <i class="paper plane outline icon"></i>
+            2nd Meeting
+        </h4>
+
+
+        <div class="field" id="second-meeting">
+            {% ifequal candidate.first_meeting_status "shortlisted" %}
+            <div class="twelve wide fields" style="padding-left: 8px;">
+                <label>Status:</label>
+                <div class="field">
+                    {{candidate.get_second_meeting_status_display}}
+                </div>
+            </div>
+
+            <div class="twelve wide field">
+                <label>Additional Note</label>
+                <div class="field" style="padding-left: 34px;">
+                    {% ifequal candidate.additional_notes_on_second_meeting ""  %}
+                        ----------
+                    {% else %}
+                        {{candidate.additional_notes_on_second_meeting}}
+                    {% endifequal %}
+                </div>
+            </div>
+            {% else %}
+                <p>Not Shortlisted in 1st Interview</p>
+            {% endifequal %}
+        </div>
+
+
+        {% comment %} TODO: Additional Meetings View {% endcomment %}
+        {% for additional_meeting in candidate.more_meetings.all %}
+
+
+            <h5 class="ui horizontal divider header">
+                <i class="calendar check outline icon"></i>
+                Scheduled Interview For {{forloop.counter|get_meeting_no}} Meeting
+            </h5>
+
+
+            <div class="field" id="schedule-interview-{{forloop.counter|get_meeting_no}}">
+                    <div class="two fields">
+                        <div class="eight wide field">
+                            <label>Date</label>
+                            {{additional_meeting.extra_interview_date}}
+                        </div>
+                        <div class="eight wide field">
+                            <label>Time</label>
+                            {{additional_meeting.extra_interview_time}}
+                        </div>
+                    </div>
+            </div>
+
+            <br>
+
+            <h4 class="ui horizontal divider header">
+                <i class="paper plane outline icon"></i>
+                {{forloop.counter|get_meeting_no}} Meeting
+            </h4>
+
+
+            <div class="field" id="second-meeting">
+                <div class="twelve wide fields" style="padding-left: 8px;">
+                    <label>Status:</label>
+                    <div class="field">
+                        {{additional_meeting.get_extra_meeting_status_display}}
+                    </div>
+                </div>
+
+                <div class="twelve wide field">
+                    <label>Additional Note</label>
+                    <div class="field" style="padding-left: 34px;">
+                        {% ifequal additional_meeting.additional_notes_on_extra_meeting ""  %}
+                            ----------
+                        {% else %}
+                            {{additional_meeting.additional_notes_on_extra_meeting}}
+                        {% endifequal %}
+                    </div>
+                </div>
+            </div>
+        
+        {% endfor %}
+
+
+        <h4 class="ui horizontal divider header">
+            <i class="file alternate outline icon"></i>
+            Aadhar Attatchment & Email
+        </h4>
+
+        <div class="field" id="final-attatchment">
+            <div class="field">
+                {% ifequal candidate.second_meeting_status "shortlisted" %}
+                    <label>Aadhar:</label>
+                    <div class="twelve wide field">
+                        <a href="..\media\{{candidate.aadhar}}">{{candidate.aadhar}}</a>
+                    </div>
+                    <label>E-mail:</label>
+                    <div class="twelve wide field">
+                        {{candidate.email}}
+                    </div>
+                {% else %}
+                    <p>Not Selected in Second Interview</p>
+                {% endifequal %}
+            </div>
+        </div>
+
+
+        
+
+
+
+</div>
+
+
+    <script type="text/javascript">
+            
+    </script>
+
+</div>
+{% endblock %}
+
+        

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XIRCLS!
+        {% block title %}{% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/logic.js' %}"></script>
+</head>
+<body>
+
+    <div class="ui stackable massive inverted teal top attached menu" id="navbar">
+        <a class="item" href="{% url 'addcandidate:home' %}">
+            <i class="ui active inverted large home icon"></i>
+            Home
+        </a>
+        {% if user.is_authenticated %}
+            <div class="item">
+                    Welcome: {{user.username}}
+            </div>
+        {% endif %}
+
+
+        <div class="right inverted menu">
+            {% if user.is_authenticated %}
+                <a class="item" href="{% url 'addcandidate:addcandidate' %}">
+                    Add Candidate
+                </a>
+                <a class="item" href="{% url 'addcandidate:listcandidate' %}">
+                    View Candidates
+                </a>
+                <a class="right item" href="{% url 'addcandidate:logout' %}">
+                    <i class="ui inverted sign out icon"></i>
+                    Logout
+                </a>
+            {% else %}
+                <a class="right item" href="{% url 'addcandidate:user_login' %}">
+                    <i class="ui inverted sign out icon"></i>
+                    Login
+                </a>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+<div class="container">
+
+    {% block body_block %}
+<!--    Anything outside of this will be inherited-->
+    {% endblock %}
+</div>
+
+</body>
+</html>

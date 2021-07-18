@@ -1,0 +1,756 @@
+{% extends 'addcandidate/base.html' %}
+{% load staticfiles %}
+{% load custom_tags %}
+{% load semanticui %}
+
+{% block title %}Add Candidate{% endblock %}
+
+{% block body_block %}
+
+
+<div class="ui stackable doubling centered card right floated"
+         style="margin: auto;
+                margin-top: 6%;
+                min-width: 800px;">
+
+
+<form method ="POST" action="" enctype="multipart/form-data">
+<div class="ui form" style="padding: 8px; padding-left: 24px; padding-right: 24px;">
+        {% csrf_token %}
+        
+        
+
+  <h4 class="ui dividing header">UPDATE CANDIDATE</h4>
+  
+  {% comment %} {{form.as_p}} {% endcomment %}
+
+
+  <div class="field">
+    <label>Name*</label>
+    <div class="three fields">
+        {{form.first_name.errors}}
+        <div class="field">
+        {{form.first_name}}
+        </div>
+        {{form.middle_name.errors}}
+        <div class="field">
+        {{form.middle_name}}
+        </div>
+        {{form.last_name.errors}}
+        <div class="field">
+        {{form.last_name}}
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+  {{ form.contact_number.errors }}
+    <label>Contact Number*</label>
+    <div class="six wide field">
+      {{form.contact_number}}
+    </div>
+  </div>
+
+<div class="valid-msg-error">
+    <span id="link-resume-error" style="color:red">{{link_resume_error}}</span>
+</div>
+
+  <div class="field">
+  {{ form.linkedin_link.errors }}
+    <label>Linkedin Link</label>
+    <div class="twelve wide field">
+      {{form.linkedin_link}}
+    </div>
+  </div>
+
+    <div class="field">
+    {{form.resume.errors}}
+    <label>Resume</label>
+    <div class="twelve wide field">
+        {{form.resume}}
+    </div>
+    </div>
+
+  
+  {% comment %} <div class="two fields">
+    <div class="field">
+    {{ form.state.errors }}
+      <label for="inputState">State</label>
+      <select class="ui fluid dropdown" id="inputState" name="input-state">
+        <option value="SelectState">Select State</option>
+            <option value="Andhra Pradesh" {% ifequal form.state.value "Andhra Pradesh" %}selected{% endifequal %}>Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar" {% ifequal form.state.value "Bihar" %}selected{% endifequal %}>Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Orissa">Orissa</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttaranchal">Uttaranchal</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="West Bengal">West Bengal</option>
+            <option disabled style="background-color:#aaa; color:#fff">UNION Territories</option>
+            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+            <option value="Daman and Diu">Daman and Diu</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Lakshadeep">Lakshadeep</option>
+            <option value="Pondicherry">Pondicherry</option>
+      </select>
+    </div>
+
+    <div class="field">
+    {{ form.city.errors }}
+        <label for="inputDistrict">District</label>
+        <select class="ui fluid dropdown" id="inputDistrict" name="input-district">
+            <option value="SelectCity">-- Select City -- </option>
+        </select>
+    </div>
+
+
+  </div> {% endcomment %}
+
+        <div class="two fields">
+            <div class="eight wide field">
+            {{ form.date_called.errors }}
+            {{form.date_called.label}}
+                {% comment %} <input type="date" class="ui input" value={{form.date_called.value}} placeholder="Date" name="date-called" id="date-called" > {% endcomment %}
+                {% comment %} {% render_field form.date_called value=form.date_called.value _field_class='ui input' placeholder='Date' name='date-called' id='date-called' %} {% endcomment %}
+            {{form.date_called}}
+           </div>
+            <div class="eight wide field">
+            {{ form.time_called.errors }}
+            {{form.time_called.label}}
+            {{form.time_called}}
+           </div>
+        </div>
+
+        
+        <div class="field">
+            <label>Applied for</label>
+            <div class="two fields">
+                <div class="eight wide field">
+                    {{ form.role.errors }}
+                    {{form.role.label}}
+                    {{form.role}}
+                </div>
+                <div class="eight wide field">
+                    {{ form.position.errors }}
+                    {{form.position.label}}
+                    {{form.position}}
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="two fields">
+                <div class="eight wide field">
+                    <div id="otherRole" style="display:none;">
+                        {{form.other_role.errors}}
+                        {{form.other_role.label}}
+                        {{form.other_role}}
+                    </div>
+                </div>
+                <div class="eight wide field">
+                    <div id="otherPosition" style="display:none;">
+                        <label for="specify">Specify Position</label>
+                        {{form.other_position}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="field" id="rating-parameters" style="display:none;">
+        <label>Rating Parametrs</label>
+        <table class="ui celled table">        
+            <tr>
+            <td style="width: 30%;"><label id="label-param-0" name="label-param-0">Comment</label></td>
+            <td class="right aligned">
+            <div class="inline fields">
+                {{form.first_param_val.errors}}
+                {% comment %} {{form.first_param_val}} {% endcomment %}
+
+                {% for radio in form.first_param_val|get_param_form %}
+                    <li>
+                        {{ radio }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </li>
+                {% endfor %}
+            </div>
+            </td>
+            </div>
+            </tr>
+
+            <tr>
+            <td style="width: 30%;"><label id="label-param-1" name="label-param-1">Comment</label></td>
+            <td class="right aligned">
+            <div class="inline fields">
+                {{form.second_param_val.errors}}
+                {% for radio in form.second_param_val|get_param_form %}
+                    <li>
+                        {{ radio }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </li>
+                {% endfor %}
+            </div>
+            </td>
+            </div>
+            </tr>
+
+            <tr>
+            <td style="width: 30%;"><label id="label-param-2" name="label-param-2">Comment</label></td>
+            <td class="right aligned">
+            <div class="inline fields">
+                {{form.third_param_val.errors}}
+                {% for radio in form.third_param_val|get_param_form %}
+                    <li>
+                        {{ radio }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </li>
+                {% endfor %}
+            </div>
+            </td>
+            </div>
+            </tr>
+
+            <tr>
+            <td style="width: 30%;"><label id="label-param-3" name="label-param-3">Comment</label></td>
+            <td class="right aligned">
+            <div class="inline fields">
+                {{form.fourth_param_val.errors}}
+                {% for radio in form.fourth_param_val|get_param_form %}
+                    <li>
+                        {{ radio }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </li>
+                {% endfor %}
+            </div>
+            </td>
+            </div>
+            </tr>
+        </table>
+        </div>
+
+
+
+        {% comment %} <div class="twelve wide field">
+            
+            <label>Attitude</label>
+            {{form.attitude.errors}}
+            {{form.attitude}}
+        </div>  {% endcomment %}
+
+
+
+        <div class="field">
+            <label>Notes:</label>
+            <div class="twelve wide field">
+                <label>Positive</label>
+                {{form.positive_notes.errors}}
+                {{form.positive_notes}}
+            </div>
+            <div class="twelve wide field">
+                <label>Negative</label>
+                {{form.negative_notes.errors}}
+                {{form.negative_notes}}
+            </div>
+            <div class="twelve wide field">
+                <label>Additional</label>
+                {{form.additional_notes.errors}}
+                {{form.additional_notes}}
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+
+
+        <div class="field">
+            <label>Source</label>
+            <div class="twelve wide field">
+                {{form.source.errors}}
+                {{form.source}}
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="twelve wide field">
+                <div id="otherSource" style="display:none;">
+                    {{form.other_source.errors}}
+                    <label for="specify">Specify Source</label>
+                    {{form.other_source}}
+                </div>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+
+        <div class="field">
+            <label>1st Meeting:</label>
+            <div class="inline fields">
+                {{form.first_meeting_status.errors}}
+                <label name="fms">Status</label>
+                    {% for radio in form.first_meeting_status|get_param_form %}
+                        <div class="field">
+                            {{radio}}
+                        </div>
+                    {% endfor %}
+            </div>
+
+            <div class="twelve wide field">
+                <label>Additional Note</label>
+                {{form.additional_notes_on_first_meeting}}
+            </div>
+        </div>
+
+        <br>
+        <div class="ui divider"></div>
+
+
+        <div class="field" id="schedule-interview">
+            <label>Schedule Interview:</label>
+            <div class="two fields">
+                <div class="eight wide field">
+                    {{ form.interview_date.errors }}
+                    {{form.interview_date.label}}
+                    {{form.interview_date}}
+                </div>
+                <div class="eight wide field">
+                    {{ form.interview_time.errors }}
+                    {{form.interview_time.label}}
+                    {{form.interview_time}}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="field" id="second-meeting">
+            <label>2nd Meeting:</label>
+            <div class="inline fields">
+                {{form.second_meeting_status.errors}}
+                <label name="sms">Status</label>
+                {% for radio in form.second_meeting_status|get_param_form %}
+                        <div class="field">
+                            {{radio}}
+                        </div>
+                {% endfor %}
+            </div>
+
+            <div class="twelve wide field">
+                {{form.additional_notes_on_second_meeting.errors}}
+                <label>Additional Note By Sir</label>
+                {{form.additional_notes_on_second_meeting}}
+            </div>
+        </div>
+
+        <br>
+        <div class="ui divider"></div>
+
+
+        {% comment %} TODO: Additional Meetings for Update {% endcomment %}
+
+
+        <div class="field" id="more_meetings">
+            {{ formset.management_form }}
+            {% for meeting in formset %}
+
+                <div class="no_error">
+
+                        {% for hidden in meeting.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+            
+                <div class="field">
+                    <label>Schedule Interview:</label>
+                    <div class="two fields">
+                        <div class="eight wide field">
+                            {{ meeting.extra_interview_date.errors }}
+                            {{meeting.extra_interview_date.label}}
+                            {{meeting.extra_interview_date}}
+                        </div>
+                        <div class="eight wide field">
+                            {{ meeting.extra_interview_time.errors }}
+                            {{meeting.extra_interview_time.label}}
+                            {{meeting.extra_interview_time}}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="field">
+                    <label>{{forloop.counter|get_meeting_no}} Meeting:</label>
+                    <div class="inline fields">
+                        {{meeting.extra_meeting_status.errors}}
+                        <label name="sms">Status</label>
+                        {% for radio in meeting.extra_meeting_status|get_param_form %}
+                                <div class="field">
+                                    {{radio}}
+                                </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="twelve wide field">
+                        {{meeting.additional_notes_on_extra_meeting.errors}}
+                        <label>Additional Note By Sir</label>
+                        {{meeting.additional_notes_on_extra_meeting}}
+                    </div>
+                </div>
+
+                <br>
+                <div class="ui divider"></div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+{% comment %} <input type="button" value="Add More" id="add_more">
+<div id="empty_form" style="display:none">
+    <div class='no_error'>
+        {{ formset.empty_form }}
+    </div>
+</div> {% endcomment %}
+
+{% comment %} <div id="content">
+        
+</div> {% endcomment %}
+
+
+<div class="ui horizontal divider header" id="more_interview">
+    <button type="button" class="ui inverted secondary button" onclick="addRow();">
+        <i class="plus circle icon"></i>
+        Add More Meeting
+    </button>
+</div>
+
+
+
+
+        <div class="field" id="final-attatchment">
+            {{form.aadhar.errors}}
+            <label>Aadhar Attatchment:</label>
+            <div class="twelve wide field">
+                {{form.aadhar}}
+            </div>
+            {{form.email.errors}}
+            <label>E-mail</label>
+            <div class="twelve wide field">
+                {{form.email}}
+            </div>
+        </div>
+
+{% comment %} {{ formset.management_form }} {% endcomment %}
+  <input type="submit" value="Update">
+</div>
+</form>
+
+<br>
+<br>
+</div>
+        <script type="text/javascript">
+            state_district();
+            firstMeetingStatusCheckUpdate();
+            secondMeetingStatusCheckUpdate();
+            
+            function firstMeetingStatusCheckUpdate() {
+                if (document.getElementById('m1_1').checked) {
+                    console.log("here3");
+                    document.getElementById('schedule-interview').style.display = 'block';
+                    document.getElementById('second-meeting').style.display = 'block';
+                    document.getElementById('more_interview').style.display = 'none';
+                } 
+                else if(document.getElementById('m1_2').checked) {
+                    console.log(document.getElementById('m1_2').checked);
+                    console.log(document);
+                    document.getElementById('schedule-interview').style.display = 'none';
+                    document.getElementById('second-meeting').style.display = 'none';
+                    document.getElementById('final-attatchment').style.display = 'none';
+                    document.getElementById('more_interview').style.display = 'none';
+                }
+                else if(document.getElementById('m1_3').checked){
+                        console.log(document.getElementById('m1_3').checked);
+                        console.log("here2");
+                        document.getElementById('schedule-interview').style.display = 'none';
+                        document.getElementById('second-meeting').style.display = 'none';
+                        document.getElementById('final-attatchment').style.display = 'none';
+                        document.getElementById('more_interview').style.display = 'none';
+                }
+            }
+
+            function secondMeetingStatusCheckUpdate() {
+                if (document.getElementById('m2_1').checked) {
+                    document.getElementById('final-attatchment').style.display = 'block';
+                    document.getElementById('more_interview').style.display = 'block';
+                } 
+                else if(document.getElementById('m2_2').checked || document.getElementById('m2_3').checked) {
+                    document.getElementById('final-attatchment').style.display = 'none';
+                    document.getElementById('more_interview').style.display = 'none';
+                }
+            }
+
+            function moreMeetingStatusCheckUpdate(val) {
+                console.log("bllblallalalalal");
+                if (document.getElementById('id_form-' + (val) + '-extra_meeting_status_1').checked) {
+                    document.getElementById('final-attatchment').style.display = 'block';
+                    document.getElementById('more_interview').style.display = 'block';
+                } 
+                else if(document.getElementById('id_form-' + (val) + '-extra_meeting_status_2').checked || document.getElementById('id_form-' + (val) + '-extra_meeting_status_3').checked) {
+                    document.getElementById('final-attatchment').style.display = 'none';
+                    document.getElementById('more_interview').style.display = 'none';
+                }
+            }
+
+
+            
+
+            var a = JSON.parse("{{roles_parameters|escapejs}}");
+
+            var rel = document.getElementById("role");
+            var pos = document.getElementById("position");
+            var src = document.getElementById("source");
+            if(rel.value == 16){
+                document.getElementById("id_other_role").setAttribute("required", "");
+                $("#otherRole").show()
+                }
+                else{
+                document.getElementById("id_other_role").removeAttribute("required");
+                $("#otherRole").hide()
+                };
+
+            if(pos.value == "other"){
+                document.getElementById("id_other_position").setAttribute("required", "");
+                $("#otherPosition").show()
+                }
+                else{
+                document.getElementById("id_other_position").removeAttribute("required");
+                $("#otherPosition").hide()
+                }
+
+            if(rel.value != ""){
+                console.log("kwhekdwjhdlwheldwlejdweij00");
+                console.log(a);
+                var rl = a[rel.value];
+                console.log(rl);
+
+                for (let i = 0; i < rl.length; i++) {
+                    let paramId = "label-param-" + i;
+                    console.log(paramId);
+                    let dataNode = document.getElementById(paramId);
+                    console.log(dataNode)
+                    console.log(rl[i]);
+                    dataNode.innerText = rl[i];
+                }
+                $("#rating-parameters").show();
+            }
+
+            if(src.value == "other"){
+                document.getElementById("id_other_source").setAttribute("required", "");
+                $("#otherSource").show()
+                }
+                else{
+                document.getElementById("id_other_source").removeAttribute("required");
+                $("#otherSource").hide()
+                }
+                
+            
+
+            $('#role').on('change',function(){
+                if( $(this).val()==="16"){
+                document.getElementById("id_other_role").setAttribute("required", "");
+                $("#otherRole").show()
+                }
+                else{
+                document.getElementById("id_other_role").removeAttribute("required");
+                $("#otherRole").hide()
+                }
+                var rl = a[$(this).val()];
+                console.log(rl);
+
+                for (let i = 0; i < rl.length; i++) {
+                    let paramId = "label-param-" + i;
+                    console.log(paramId);
+                    let dataNode = document.getElementById(paramId);
+                    console.log(dataNode)
+                    console.log(rl[i]);
+                    dataNode.innerText = rl[i];
+                }
+                $("#rating-parameters").show();
+
+            });
+
+            $('#position').on('change',function(){
+                if( $(this).val()==="other"){
+                document.getElementById("id_other_position").setAttribute("required", "");
+                $("#otherPosition").show()
+                }
+                else{
+                document.getElementById("id_other_position").removeAttribute("required");
+                $("#otherPosition").hide()
+                }
+            });
+
+            $('#source').on('change',function(){
+                if( $(this).val()==="other"){
+                document.getElementById("id_other_source").setAttribute("required", "");
+                $("#otherSource").show()
+                }
+                else{
+                document.getElementById("id_other_source").removeAttribute("required");
+                $("#otherSource").hide()
+                }
+            });
+
+            $('#attitude').dropdown({
+                maxSelections: 4,
+            });
+
+
+
+            var interview_no = {{extra_meeting_forms|length}};
+            var last_meet_id = {{last_meet_id}};
+            var i_no = interview_no+3;
+            const temp = interview_no;
+            console.log(interview_no);
+            console.log(i_no);
+            console.log(temp);
+
+
+            function addRow() {
+                const div = document.createElement('div');
+
+                div.className = 'no_error';
+                let prev_meet_id;
+                if(interview_no == 0){
+                    prev_meet_id = "m2_1";
+                }
+                else{
+                    prev_meet_id = "id_form-" + (interview_no-1) + "-extra_meeting_status_1";
+                } 
+                let prev_minus_btn_id = "minus-"+(interview_no-1);
+                console.log(prev_meet_id);
+                console.log(prev_minus_btn_id);
+                
+                
+                if(document.getElementById(prev_meet_id).checked){
+
+                div.innerHTML = `
+                <br>
+                <div class="ui divider"></div>
+                    <button type="button" class="circular ui icon button right floated" onclick="removeRow(this)" id="minus-` + interview_no + `">
+                        <i class="minus circle icon"></i>
+                    </button>
+
+
+                    <div class="field" id="schedule-interview-` + i_no + `">
+                        <label>Schedule Interview:</label>
+                        <div class="two fields">
+                            <div class="eight wide field">
+                                <label>Date</label>
+                                <input type="date" class="ui input" placeholder="Date" name="form-` + interview_no + `-extra_interview_date" id="extra-date-interview">
+                            </div>
+                            <div class="eight wide field">
+                                <label>Time</label>
+                                <input type="time"  class="ui input" placeholder="Time" name="form-` + interview_no + `-extra_interview_time" id="extra-time-interview">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="field" id="meeting-` + i_no + `">
+                        <label>Meeting ` + (interview_no+3) +` :</label>
+                        <div class="inline fields">
+                            <label name="sms">Status</label>
+                            <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" value="shortlisted" onclick="moreMeetingStatusCheckUpdate(` + interview_no + `)" name="form-` + interview_no + `-extra_meeting_status" id="id_form-` + interview_no + `-extra_meeting_status_1">
+                                <label>Shortlisted</label>
+                            </div>
+                            </div>
+                            <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" value="rejected" onclick="moreMeetingStatusCheckUpdate(` + interview_no + `)" name="form-` + interview_no + `-extra_meeting_status" id="id_form-` + interview_no + `-extra_meeting_status_2">
+                                <label>Rejected</label>
+                            </div>
+                            </div>
+                            <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" value="meeting_to_be_held" onclick="moreMeetingStatusCheckUpdate(` + interview_no + `)" name="form-` + interview_no + `-extra_meeting_status" id="id_form-` + interview_no + `-extra_meeting_status_3" checked="checked">
+                                <label>MeetingToBeHeld</label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="twelve wide field">
+                            <label>Additional Note By Sir</label>
+                            <textarea rows="4" name="form-` + interview_no + `-additional_notes_on_extra_meeting" id="extra-note"></textarea>
+                        </div>
+                    </div>
+
+                <div class="ui divider"></div>
+
+                `;
+
+                if(prev_minus_btn_id!="minus-"+(temp-1)){
+                    document.getElementById(prev_minus_btn_id).style.display = 'none';
+                }
+                interview_no += 1;
+                i_no += 1;
+                document.getElementById('more_meetings').appendChild(div);
+                var form_idx = $('#id_form-TOTAL_FORMS').val();
+                $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+
+                moreMeetingStatusCheckUpdate(interview_no-1);
+                }
+            }
+
+            function removeRow(input) {
+                document.getElementById('more_meetings').removeChild(input.parentNode);
+                interview_no -= 1;
+                let prev_minus_btn_id_in_remove = "minus-"+(interview_no-1);
+                console.log(prev_minus_btn_id_in_remove);
+                if(prev_minus_btn_id_in_remove!="minus-"+(temp-1)){
+                    document.getElementById(prev_minus_btn_id_in_remove).style.display = 'block';
+                }
+                var form_idx = $('#id_form-TOTAL_FORMS').val();
+                $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) - 1);
+
+                moreMeetingStatusCheckUpdate(interview_no-1);
+            }
+
+
+
+
+
+
+
+
+
+            {% comment %} $('#add_more').click(function() {
+                var form_idx = $('#id_form-TOTAL_FORMS').val();
+                $('#more_meetings').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+                $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+            }); {% endcomment %}
+
+        </script>
+
+{% endblock %}

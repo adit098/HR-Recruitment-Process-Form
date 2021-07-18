@@ -1,0 +1,15 @@
+.ui.form { 
+    font-size:1.1rem; 
+}
+
+.ui.stackable .top{
+    font-size:1.1rem; 
+}
+
+.ui.stackable .bottom{
+    font-size:1.1rem; 
+}
+
+/* .ui.stackable form .ui.form #content{
+    border: 2px solid green;
+} */
