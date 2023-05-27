@@ -1,16 +1,28 @@
 # HR-Recruitment-Process-Form
 A portal where HR can add/track/update the recruitment process of a candidate.
 
+![Screenshot 2023-05-27 at 11 26 41 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/a7f1e58c-c439-4172-9661-11f5e5344a45)
+![Screenshot 2023-05-27 at 11 26 46 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/3d958493-b63f-48d7-ad57-b28548f7420c)
+![Screenshot 2023-05-27 at 11 27 07 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/dc193d44-5f2e-49b3-be4e-79fa2f6bfa4a)
+![Screenshot 2023-05-27 at 11 27 17 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/90be6f65-2e8d-41f1-bc66-bac1a2636bef)
+![Screenshot 2023-05-27 at 11 27 54 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/faae6c23-65d6-414d-a895-a85f6e668274)
+![Screenshot 2023-05-27 at 11 28 08 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/7cf64af3-9815-40e2-84e6-596e977017f0)
+![Screenshot 2023-05-27 at 11 29 06 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/c4213f63-1c42-461e-b964-ba82949d3c80)
+![Screenshot 2023-05-27 at 11 29 21 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/6c21c8c9-5e01-4322-9fb9-72e96c6eb8d2)
+![Screenshot 2023-05-27 at 11 30 05 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/2c5d6f2b-7083-4d5f-8e40-97d78c23e2e2)
+![Screenshot 2023-05-27 at 11 30 42 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/8285b43b-e323-4cfb-9659-c61a57e2f67f)
+![Screenshot 2023-05-27 at 11 30 53 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/be37e3ba-386e-4dd7-afd3-ff5e0477019c)
+![Screenshot 2023-05-27 at 11 31 04 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/553b9d6b-37d9-40d7-b63f-13e5248a6dcc)
+![Screenshot 2023-05-27 at 11 34 59 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/c97226d5-d263-4dc7-b9f0-4ef6b2d496a6)
+![Screenshot 2023-05-27 at 11 31 15 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/ffe1a0b5-7174-4bcd-8149-65dd7bd3f40a)
+![Screenshot 2023-05-27 at 11 31 33 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/08b7be74-638e-4df9-85da-8b9bed74321b)
 
-![Screenshot 2023-05-27 at 11 05 26 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/a2a0ea62-fbb5-414b-938d-968c109e3f83)
-![Screenshot 2023-05-27 at 11 05 32 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/9b6113e4-6134-4c8e-8861-37ec864624a6)
-![Screenshot 2023-05-27 at 11 05 42 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/0e36ac92-a00d-49fd-b93b-45c924ba8944)
-![Screenshot 2023-05-27 at 11 02 14 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/3c763c77-2f81-4f98-818f-1f5e29cb0a15)
-![Screenshot 2023-05-27 at 11 03 01 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/0fd33dd1-b42e-41ca-a01f-c5dc919e80a1)
-![Screenshot 2023-05-27 at 11 03 24 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/967f9bde-fb44-42dc-9319-d51fc7f93c2f)
-![Screenshot 2023-05-27 at 11 03 49 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/0e674ba3-9654-4518-b91b-9766fff28e71)
-![Screenshot 2023-05-27 at 11 04 09 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/70bd0e6e-5bb1-4863-a3ea-936c65d671fb)
-![Screenshot 2023-05-27 at 11 04 23 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/bc89c1c3-e41c-4394-801f-85c80cbfb9ee)
-![Screenshot 2023-05-27 at 11 04 30 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/ce32cd07-fa29-4544-9c6b-87fde98cfd41)
-![Screenshot 2023-05-27 at 11 05 02 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/c637a9d7-0453-46dd-8315-5b3b35077e2c)
-![Screenshot 2023-05-27 at 11 05 14 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/d7ccaadc-5fb7-43ae-8aa5-04f01c657d03)
+![Screenshot 2023-05-27 at 11 33 05 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/5a870102-6452-4f0e-aab4-58ed742e514d)
+
+![Screenshot 2023-05-27 at 11 33 40 PM](https://github.com/adit098/HR-Recruitment-Process-Form/assets/54178152/46712f2b-c4a9-40fe-9e6f-e853aef2de94)
+
+
+
+
+
+
