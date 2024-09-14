@@ -1,0 +1,17 @@
+db.sqlite3
+addcandidate\__pycache__
+*.log
+*.pot
+*.pyc
+media
+
+# IntelliJ
+out/
+
+# Visual Studio Code #
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
