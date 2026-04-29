@@ -4,6 +4,8 @@ addcandidate\__pycache__
 *.pot
 *.pyc
 media
+staticfiles
+.venv
 
 # IntelliJ
 out/

@@ -4,8 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "2.2.17"
-django-allauth = "0.50.0"
+django = "==4.2.16"
+dj-database-url = "==2.2.0"
+psycopg2-binary = "==2.9.9"
+whitenoise = "==6.7.0"
 
 [requires]
-python_version = "3.9"
+python_version = "3.12"
